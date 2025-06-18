@@ -1,0 +1,11 @@
+/**** Start of imports. If edited, may not auto-convert in the playground. ****/
+var table = ee.FeatureCollection("projects/keen-clarity-460008-v0/assets/CNF");
+/***** End of imports. If edited, may not auto-convert in the playground. *****/
+// Define the roi and add it to the map
+Map.addLayer(roi);
+
+// 2. Load Landsat 8 Image Collection, filter by date, ROI, and cloud cover
+var landsatCollection = ee.ImageCollection("LANDSAT/LC08/C02/T1_TOA")
+  .filterDate('2020-01-01', '2020-12-31')
+  .filterBounds(roi)
+  .filter(ee.Filter.lt('CLOUD_COVER', 10));
