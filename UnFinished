@@ -1,0 +1,21 @@
+/**** Start of imports. If edited, may not auto-convert in the playground. ****/
+var roi = ee.FeatureCollection("projects/keen-clarity-460008-v0/assets/CNF");
+/***** End of imports. If edited, may not auto-convert in the playground. *****/
+// Definr thr region of interest(roi) and add it to the map
+Map.addLayer(roi);
+
+var l8_composite = ee.ImageCollection("LANDSAT/LC08/C02/T1_TOA")
+                  .filterDate ('2024-09-02','2024-09-05')
+                  .filterBounds(roi)
+                  .filter(ee.Filter.lt('Cloud_Cover',5))
+                  .median()
+                  .clip(roi);
+
+//Add the Layer to the map                  
+var vis_params = {
+  bands: ['B5','B4','B3'],
+  min : 0,
+  max : 0.3,
+  gamma : 1.2,
+};
+Map.addLayer(l8_composite,vis_params, 'L8 Composite');
