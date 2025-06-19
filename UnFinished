@@ -1,6 +1,9 @@
 /**** Start of imports. If edited, may not auto-convert in the playground. ****/
 var roi = ee.FeatureCollection("projects/keen-clarity-460008-v0/assets/CNF");
 /***** End of imports. If edited, may not auto-convert in the playground. *****/
+/**** Start of imports. If edited, may not auto-convert in the playground. ****/
+var roi = ee.FeatureCollection("projects/keen-clarity-460008-v0/assets/CNF");
+/***** End of imports. If edited, may not auto-convert in the playground. *****/
 // Definr thr region of interest(roi) and add it to the map
 Map.addLayer(roi);
 
