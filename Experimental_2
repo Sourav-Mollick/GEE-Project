@@ -1,6 +1,11 @@
 /**** Start of imports. If edited, may not auto-convert in the playground. ****/
 var Imagery = ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED"),
-    aoi = ee.FeatureCollection("projects/keen-clarity-460008-v0/assets/CNF");
+    aoi = ee.FeatureCollection("projects/keen-clarity-460008-v0/assets/CNF"),
+    Vegetation = /* color: #289004 */ee.FeatureCollection([]),
+    Residential_Area = /* color: #ec3705 */ee.FeatureCollection([]),
+    Waterbody = /* color: #0b4a8b */ee.FeatureCollection([]),
+    Agricultural_Land = /* color: #6eff0f */ee.FeatureCollection([]),
+    Fallow_Land = /* color: #e9ff11 */ee.Geometry.MultiPoint();
 /***** End of imports. If edited, may not auto-convert in the playground. *****/
 function maskS2clouds(image) {
   var qa = image.select('QA60');
