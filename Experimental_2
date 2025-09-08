@@ -7717,7 +7717,6 @@ var Imagery = ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED"),
               "LC": 4,
               "system:index": "99"
             })]),
-    table = ee.FeatureCollection("FAO/GAUL/2015/level2"),
     geometry = /* color: #d63000 */ee.Geometry.MultiPoint(
         [[91.22523394951907, 23.171538324767745],
          [91.18128863701907, 22.842885028817555],
@@ -7756,8 +7755,8 @@ var visualization = {
   bands: ['B4', 'B3', 'B2'],
 };
 
-Map.centerObject(aoi, 10);
-var img=dataset.mean().clip(aoi);
+Map.centerObject(roi, 10);
+var img=dataset.mean().clip(roi);
 Map.addLayer(img, visualization, 'RGB');
 
 
@@ -7781,7 +7780,7 @@ var areaStats = areaImage.reduceRegion({
     groupField: 1,
     groupName: "LC"
   }),
-  geometry: aoi,
+  geometry: roi,
   scale: 30,
   maxPixels: 1e13
 });
@@ -7817,7 +7816,7 @@ Export.image.toDrive({
   description: 'LandCoverClassification',
   folder: 'GEE_Exports', // Change this to your preferred Google Drive folder
   fileNamePrefix: 'land_cover_classification',
-  region: aoi, // Ensure 'aoi' is properly defined
+  region: roi, // Ensure 'aoi' is properly defined
   scale: 30,
   maxPixels: 1e13,
   crs: 'EPSG:4326' // Change CRS if needed
