@@ -1,0 +1,23 @@
+/**** Start of imports. If edited, may not auto-convert in the playground. ****/
+var roi = ee.FeatureCollection("projects/keen-clarity-460008-v0/assets/CNF");
+/***** End of imports. If edited, may not auto-convert in the playground. *****/
+// Define the roi and add it to the map
+Map.addLayer(roi);
+
+// 2. Load Landsat 8 Image Collection, filter by date, ROI, and cloud cover
+var sentinelCollection = ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED")
+  .filterDate('2024-08-25', '2024-09-02')
+  .filterBounds(roi)
+  .filter(ee.Filter.lt('CLOUD_COVER', 5));
+  
+  // 3. Create median composite and clip to ROI
+var medianImage = sentinelCollection.median().clip(roi);
+
+// 4. Visualization parameters for Sentinel 2 bands (NIR, Red, Green)
+var visParams = {
+  bands: ['B8', 'B4', 'B3'],
+  min: 0,
+  max: 3000,
+  gamma: 1.4,
+};
+Map.addLayer(medianImage, visParams, 'Sentinel-2 Composite');
