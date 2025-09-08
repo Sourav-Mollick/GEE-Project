@@ -4,7 +4,8 @@ var table = ee.FeatureCollection("FAO/GAUL/2015/level2"),
         [[91.1219079330321, 23.292254856403005],
          [91.1493737533446, 22.938605135473352],
          [91.4185387924071, 22.971483218464208]]),
-    imageCollection = ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED");
+    imageCollection = ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED"),
+    imageCollection2 = ee.ImageCollection("COPERNICUS/S1_GRD");
 /***** End of imports. If edited, may not auto-convert in the playground. *****/
 
 var roi = table.filterBounds(geometry).map(function(feature){
