@@ -17,21 +17,21 @@ Map.addLayer(roi)
 
 
 var sen2 = imageCollection
-.filterDate('2024-09','2024-10')
+.filterDate('2024-9','2024-11')
 .filterBounds(roi)
-print(sen2)
-// .filter(ee.Filter.lt('CLOUDY_PIXEL_OVER_LAND_PERCENTAGE',10))
-// .map(function(img){
-//   var bands = img.select('B[2-8]').multiply(0.0001)
-//   var ndvi = bands.normalizedDifference(['B8','B4']).rename('ndvi')
-//   //var ndwi = bands.normalizedDifference(['B3','B8']).rename('ndwi')
-//   return bands.addBands(ndvi)//.addBands(ndwi)
-//   .copyProperties(img, ['system:time_start','system:time_end'])
-//   })
+.filter(ee.Filter.lt('CLOUDY_PIXEL_OVER_LAND_PERCENTAGE',5))
 
-// var sen2_per = sen2.reduce(ee.Reducer.percentile([75,55]))
+.map(function(img){
+  var bands = img.select('B[2-8]').multiply(0.0001)
+  var ndvi = bands.normalizedDifference(['B8','B4']).rename('ndvi')
+  var ndwi = bands.normalizedDifference(['B3','B8']).rename('ndwi')
+  return bands.addBands(ndvi).addBands(ndwi)
+  .copyProperties(img, ['system:time_start','system:time_end'])
+  })
 
-// Map.addLayer(sen2_per.clip(roi),[],'sen2',false)
+var sen2_per = sen2.reduce(ee.Reducer.percentile([75,55]))
+
+Map.addLayer(sen2_per.clip(roi),[],'sen2',false)
 
 // var sen1 = imageCollection2
 // .filterDate('2023','2024')
