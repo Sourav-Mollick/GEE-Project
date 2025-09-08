@@ -1,6 +1,5 @@
 /**** Start of imports. If edited, may not auto-convert in the playground. ****/
 var Imagery = ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED"),
-    aoi = ee.FeatureCollection("users/mollick_draft01/CNF"),
     Vegetation = 
     /* color: #289004 */
     /* displayProperties: [
@@ -7717,8 +7716,20 @@ var Imagery = ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED"),
             {
               "LC": 4,
               "system:index": "99"
-            })]);
+            })]),
+    table = ee.FeatureCollection("FAO/GAUL/2015/level2"),
+    geometry = /* color: #d63000 */ee.Geometry.MultiPoint(
+        [[91.22523394951907, 23.171538324767745],
+         [91.18128863701907, 22.842885028817555],
+         [91.39552203545657, 22.984556874809197]]);
 /***** End of imports. If edited, may not auto-convert in the playground. *****/
+Map.addLayer(table)
+
+var roi = table.filterBounds(geometry)
+
+Map.centerObject(roi)
+Map.addLayer(roi)
+
 function maskS2clouds(image) {
   var qa = image.select('QA60');
 
