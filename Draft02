@@ -22,6 +22,7 @@ var sen2 = imageCollection
 .filterBounds(roi)
 .filter(ee.Filter.lt('CLOUDY_PIXEL_OVER_LAND_PERCENTAGE',10))
 
+print(sen2)
 .map(function(img){
   var bands = img.select('B[2-8]').multiply(0.0001)
   var ndvi = bands.normalizedDifference(['B8','B4']).rename('ndvi')
