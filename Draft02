@@ -29,7 +29,7 @@ var sen2 = imageCollection
   .copyProperties(img, ['system:time_start','system:time_end'])
   })
 
-var sen2_per = sen2.reduce(ee.Reducer.percentile([75,55]))
+var sen2_per = sen2.reduce(ee.Reducer.percentile([90,70,55]))
 
 Map.addLayer(sen2_per.clip(roi),[],'sen2',false)
 
