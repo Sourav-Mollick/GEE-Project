@@ -1,6 +1,6 @@
 /**** Start of imports. If edited, may not auto-convert in the playground. ****/
 var Imagery = ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED"),
-    aoi = ee.FeatureCollection("projects/keen-clarity-460008-v0/assets/CNF"),
+    aoi = ee.FeatureCollection("users/mollick_draft01/CNF"),
     Vegetation = 
     /* color: #289004 */
     /* displayProperties: [
@@ -7749,64 +7749,67 @@ Map.centerObject(aoi, 10);
 var img=dataset.mean().clip(aoi);
 Map.addLayer(img, visualization, 'RGB');
 
+// Count samples per class
+var counts = training_data.aggregate_histogram('LC');
+print('Training sample counts per class:');
 
 
 var training_points=Vegetation.merge(Residential_Area).merge(Waterbody).merge(Agricultural_Land).merge(Fallow_Land);
-var training_data=img.sampleRegions({collection:training_points,properties:["LC"], scale:30});
-var classifier = ee.Classifier.smileCart();
-var classifier =classifier.train({features:training_data,classProperty:"LC",});
-var classified=img.classify(classifier);
-Map.addLayer(classified,{min:0,max:3,palette:['#e1e741','#5226ff','#ff3030','#1dc22f']});
+// var training_data=img.sampleRegions({collection:training_points,properties:["LC"], scale:30});
+// var classifier = ee.Classifier.smileCart();
+// var classifier =classifier.train({features:training_data,classProperty:"LC",});
+// var classified=img.classify(classifier);
+// Map.addLayer(classified,{min:0,max:3,palette:['#e1e741','#5226ff','#ff3030','#1dc22f']});
 
 
 
-// Calculate the area of each class
-var areaImage = ee.Image.pixelArea().addBands(classified);
+// // Calculate the area of each class
+// var areaImage = ee.Image.pixelArea().addBands(classified);
 
-// Reduce the region to get pixel area per class
-var areaStats = areaImage.reduceRegion({
-  reducer: ee.Reducer.sum().group({
-    groupField: 1,
-    groupName: "LC"
-  }),
-  geometry: aoi,
-  scale: 30,
-  maxPixels: 1e13
-});
-var classAreas = ee.List(areaStats.get('groups')).map(function(obj) {
-  obj = ee.Dictionary(obj);
-  return [obj.get('LC'), obj.get('sum')];
-});
+// // Reduce the region to get pixel area per class
+// var areaStats = areaImage.reduceRegion({
+//   reducer: ee.Reducer.sum().group({
+//     groupField: 1,
+//     groupName: "LC"
+//   }),
+//   geometry: aoi,
+//   scale: 30,
+//   maxPixels: 1e13
+// });
+// var classAreas = ee.List(areaStats.get('groups')).map(function(obj) {
+//   obj = ee.Dictionary(obj);
+//   return [obj.get('LC'), obj.get('sum')];
+// });
 
-print('Class Areas (sq. meters):', classAreas);
-
-
-var chartData = ee.FeatureCollection(classAreas.map(function(arr) {
-  return ee.Feature(null, {LC: ee.Number(ee.List(arr).get(0)), Area: ee.Number(ee.List(arr).get(1)).divide(1e6)});
-}));
+// print('Class Areas (sq. meters):');
 
 
+// var chartData = ee.FeatureCollection(classAreas.map(function(arr) {
+//   return ee.Feature(null, {LC: ee.Number(ee.List(arr).get(0)), Area: ee.Number(ee.List(arr).get(1)).divide(1e6)});
+// }));
 
-// Generate a bar chart
-var chart = ui.Chart.feature.byFeature(chartData, "LC", "Area")
-  .setChartType("ColumnChart")
-  .setOptions({
-    title: "Land Cover Area Distribution",
-    hAxis: {title: "Land Cover Class"},
-    vAxis: {title: "Area (sq. km)"},
-    colors: ['#e1e741','#5226ff','#ff3030','#1dc22f']
-  });
 
-print(chart);
 
-// Export the classified image
-Export.image.toDrive({
-  image: classified,
-  description: 'LandCoverClassification',
-  folder: 'GEE_Exports', // Change this to your preferred Google Drive folder
-  fileNamePrefix: 'land_cover_classification',
-  region: aoi, // Ensure 'aoi' is properly defined
-  scale: 30,
-  maxPixels: 1e13,
-  crs: 'EPSG:4326' // Change CRS if needed
-});
+// // Generate a bar chart
+// var chart = ui.Chart.feature.byFeature(chartData, "LC", "Area")
+//   .setChartType("ColumnChart")
+//   .setOptions({
+//     title: "Land Cover Area Distribution",
+//     hAxis: {title: "Land Cover Class"},
+//     vAxis: {title: "Area (sq. km)"},
+//     colors: ['#e1e741','#5226ff','#ff3030','#1dc22f']
+//   });
+
+// print(chart);
+
+// // Export the classified image
+// Export.image.toDrive({
+//   image: classified,
+//   description: 'LandCoverClassification',
+//   folder: 'GEE_Exports', // Change this to your preferred Google Drive folder
+//   fileNamePrefix: 'land_cover_classification',
+//   region: aoi, // Ensure 'aoi' is properly defined
+//   scale: 30,
+//   maxPixels: 1e13,
+//   crs: 'EPSG:4326' // Change CRS if needed
+// });
