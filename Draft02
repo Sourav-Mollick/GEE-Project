@@ -9,7 +9,7 @@ var table = ee.FeatureCollection("FAO/GAUL/2015/level2"),
 /***** End of imports. If edited, may not auto-convert in the playground. *****/
 
 var roi = table.filterBounds(geometry).map(function(feature){
-  return feature.simplify(1000)
+  return feature.simplify(10000)
   })
 
 Map.centerObject(roi)
