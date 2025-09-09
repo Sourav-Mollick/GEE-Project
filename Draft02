@@ -15,7 +15,7 @@ var roi = table.filterBounds(geometry).map(function(feature){
 Map.centerObject(roi)
 Map.addLayer(roi)
 
-
+print(geometry)
 
 var sen2 = imageCollection
 .filterDate('2024-11','2024-12')
