@@ -12615,7 +12615,7 @@ var areaFc = ee.FeatureCollection(groups.map(function(item){
 }));
 
 // Print table
-print('Class Area (sq.km)', areaFc);
+print('Class Area (sq.km)');
 
 // Bar chart
 var chart = ui.Chart.feature.byFeature({
