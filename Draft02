@@ -7361,7 +7361,7 @@ var model = ee.Classifier.smileRandomForest(80).train({
 
 var map = dataset.classify(model).rename('classified_map')
 
-Map.addLayer(map.clip(roi),{min: 0, max: 5, palette:['blue','firgreen','green','yellow','darkred','ash']},'map',false)
+Map.addLayer(map.clip(roi),{min: 0, max: 5, palette:['blue','darkgreen','lightgreen','yellow','darkred','ash']},'map',false)
 
 
 // Export.image.toDrive({
