@@ -7351,9 +7351,11 @@ var training_data = dataset.sampleRegions({
   collection: samples, properties: ['class'], scale: 30
   })
   
-// var model = ee.Classifier.smileRandomForest(80).train({
-//   features: training_data, classProperty: 'class', inputProperties: dataset.bandNames()
-//   })
+var model = ee.Classifier.smileRandomForest(80).train({
+  features: training_data, classProperty: 'class', inputProperties: dataset.bandNames()
+  })
+  
+print(model)  
   
 // var map = dataset.classify(model).rename('classified_map')
 
