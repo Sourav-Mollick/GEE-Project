@@ -12585,13 +12585,14 @@ var model = ee.Classifier.smileRandomForest(80).train({
   })
   
 
+
 var map = dataset.classify(model).rename('classified_map')
 
 Map.addLayer(map.clip(roi),{min: 0, max: 5, palette:['blue','darkgreen','lightgreen','yellow','darkred','gray']},'map',false)
 
 
 // Calculate the area of each class
-var areaImage = ee.Image.pixelArea().addBands(model);
+var areaImage = ee.Image.pixelArea().addBands(map);
 
 // Reduce the region to get pixel area per class
 var areaStats = areaImage.reduceRegion({
