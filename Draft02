@@ -12629,6 +12629,7 @@ var chart = ui.Chart.feature.byFeature({
   hAxis: {title: 'Class'},
   vAxis: {title: 'Area (sq.km)'},
   legend: {position: 'none'}
+  colors: ['blue','darkgreen','lightgreen','yellow','darkred','gray']
 });
 
 print(chart);
