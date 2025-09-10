@@ -12642,6 +12642,8 @@ Export.table.toDrive({
   fileFormat: 'CSV'
 });
 
+// Mask the map with ROI
+var maskedMap = map.clip(roi).updateMask(roi);
 
 // Export the classified image
 Export.image.toDrive({
