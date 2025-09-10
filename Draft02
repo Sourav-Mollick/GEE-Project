@@ -7355,11 +7355,10 @@ var model = ee.Classifier.smileRandomForest(80).train({
   features: training_data, classProperty: 'class', inputProperties: dataset.bandNames()
   })
   
-print(model)  
-  
-// var map = dataset.classify(model).rename('classified_map')
 
-// Map.addLayer(map.clip(roi),{min: 0, max: 4, palette:['blue','green','darkgreen','black','orange']},'map',false)
+var map = dataset.classify(model).rename('classified_map')
+
+Map.addLayer(map.clip(roi),{min: 0, max: 5, palette:['blue','firgreen','green','yellow','darkred','ash']},'map',false)
 
 
 // Export.image.toDrive({
