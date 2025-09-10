@@ -14181,7 +14181,7 @@ Export.table.toDrive({
 
 // Export
 Export.image.toDrive({
-  image: finalMap,
+  image:finalMap,
   description: 'map_10_22_2024',
   region: roiGeom,
   scale: 30,
