@@ -12639,20 +12639,32 @@ Export.table.toDrive({
   fileFormat: 'CSV'
 });
 
-// Convert ROI FeatureCollection into a single geometry
+// Convert ROI to geometry
 var roiGeom = roi.geometry();
 
-// Mask the map using the ROI geometry
-var maskedMap = map.clip(roiGeom).updateMask(roiGeom);colors: {'blue','darkgreen','lightgreen','yellow','darkred','gray'};
+// Create a binary mask from ROI
+var roiMask = ee.Image.constant(1).clip(roiGeom).mask();
 
-// Export the classified image
+// Apply mask to classified map
+var maskedMap = map.updateMask(roiMask);
+
+// Create outline of ROI (1 pixel wide, value = 99)
+var outline = ee.Image().byte().paint({
+  featureCollection: roi,
+  color: 99,
+  width: 2   // thickness of outline
+});
+
+// Add outline as a new band
+var finalMap = maskedMap.addBands(outline);
+
+// Export with boundary
 Export.image.toDrive({
-  image: map.clip(roi), 
-  description: 'map_10_22_2024', 
-  region: roi, 
-  scale: 30, 
-  folder: 'test', 
-  crs: 'EPSG:4326', 
+  image: finalMap,
+  description: 'map_10_22_2024_masked_outline',
+  region: roiGeom,
+  scale: 30,
+  folder: 'test',
+  crs: 'EPSG:4326',
   maxPixels: 1e13
-  
-  })
+});
