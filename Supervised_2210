@@ -14181,9 +14181,9 @@ Export.table.toDrive({
 
 // Export
 Export.image.toDrive({
-  image:finalMap,
+  image:map.clip(roi),
   description: 'map_10_22_2024',
-  region: roiGeom,
+  region: roi,
   scale: 30,
   folder: 'test',
   crs: 'EPSG:4326',
