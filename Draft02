@@ -12590,6 +12590,56 @@ var map = dataset.classify(model).rename('classified_map')
 
 Map.addLayer(map.clip(roi),{min: 0, max: 5, palette:['blue','darkgreen','lightgreen','yellow','darkred','gray']},'map',false)
 
+// Calculate class-wise area in sq.km
+var areaImage = ee.Image.pixelArea().divide(1e6).addBands(map);
+
+// Sum area per class
+var classArea = areaImage.reduceRegion({
+  reducer: ee.Reducer.sum().group({
+    groupField: 1,
+    groupName: 'class'
+  }),
+  geometry: roi,
+  scale: 30,
+  maxPixels: 1e13
+});
+
+// Extract results as a FeatureCollection
+var groups = ee.List(classArea.get('groups'));
+var areaFc = ee.FeatureCollection(groups.map(function(item){
+  item = ee.Dictionary(item);
+  return ee.Feature(null, {
+    'class': item.get('class'),
+    'area_sqkm': item.get('sum')
+  });
+}));
+
+// Print table
+print('Class Area (sq.km)', areaFc);
+
+// Bar chart
+var chart = ui.Chart.feature.byFeature({
+  features: areaFc,
+  xProperty: 'class',
+  yProperties: ['area_sqkm']
+})
+.setChartType('ColumnChart')
+.setOptions({
+  title: 'Class Area (sq.km)',
+  hAxis: {title: 'Class'},
+  vAxis: {title: 'Area (sq.km)'},
+  legend: {position: 'none'}
+});
+
+print(chart);
+
+// Export the table
+Export.table.toDrive({
+  collection: areaFc,
+  description: 'Class_Area_sqkm',
+  folder: 'test',
+  fileFormat: 'CSV'
+});
 
 
 // Export the classified image
