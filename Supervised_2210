@@ -12642,8 +12642,11 @@ Export.table.toDrive({
   fileFormat: 'CSV'
 });
 
-// Mask the map with ROI
-var maskedMap = map.clip(roi).updateMask(roi);
+// Convert ROI FeatureCollection into a single geometry
+var roiGeom = roi.geometry();
+
+// Mask the map using the ROI geometry
+var maskedMap = map.clip(roiGeom).updateMask(roiGeom);
 
 // Export the classified image
 Export.image.toDrive({
