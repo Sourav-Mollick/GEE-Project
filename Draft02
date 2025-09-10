@@ -7343,13 +7343,13 @@ var sen1_per = sen1.reduce(ee.Reducer.percentile([75,55]))
 
 Map.addLayer(sen1_per.clip(roi),[],'sen1',false)
 
-// var dataset = sen2_per.addBands(sen1_per)
+var dataset = sen2_per.addBands(sen1_per)
 
-// var samples = water.merge(cropland).merge(forest).merge(urban).merge(rangeland)
+var samples = Waterbody.merge(Vegetation).merge(Agricultural_Land).merge(Fallow_Land).merge(Settlements).merge(Barren_Land)
 
-// var training_data = dataset.sampleRegions({
-//   collection: samples, properties: ['class'], scale: 30
-//   })
+var training_data = dataset.sampleRegions({
+  collection: samples, properties: ['class'], scale: 30
+  })
   
 // var model = ee.Classifier.smileRandomForest(80).train({
 //   features: training_data, classProperty: 'class', inputProperties: dataset.bandNames()
