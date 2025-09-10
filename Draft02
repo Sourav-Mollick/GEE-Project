@@ -12590,13 +12590,13 @@ var map = dataset.classify(model).rename('classified_map')
 Map.addLayer(map.clip(roi),{min: 0, max: 5, palette:['blue','darkgreen','lightgreen','yellow','darkred','gray']},'map',false)
 
 
-// Export.image.toDrive({
-//   image: map.clip(roi), 
-//   description: 'map2023', 
-//   region: roi, 
-//   scale: 30, 
-//   folder: 'test', 
-//   crs: 'EPSG:4326', 
-//   maxPixels: 1e13
+Export.image.toDrive({
+  image: map.clip(roi), 
+  description: 'map_10_22_2024', 
+  region: roi, 
+  scale: 30, 
+  folder: 'test', 
+  crs: 'EPSG:4326', 
+  maxPixels: 1e13
   
-//   })
+  })
