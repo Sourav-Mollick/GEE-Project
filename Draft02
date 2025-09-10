@@ -12591,7 +12591,7 @@ Map.addLayer(map.clip(roi),{min: 0, max: 5, palette:['blue','darkgreen','lightgr
 
 
 // Calculate the area of each class
-var areaImage = ee.Image.pixelArea().addBands(classified);
+var areaImage = ee.Image.pixelArea().addBands(model);
 
 // Reduce the region to get pixel area per class
 var areaStats = areaImage.reduceRegion({
