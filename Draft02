@@ -1,6 +1,9 @@
 /**** Start of imports. If edited, may not auto-convert in the playground. ****/
 var table = ee.FeatureCollection("FAO/GAUL/2015/level2"),
-    geometry = /* color: #d63000 */ee.Geometry.MultiPoint(
+    geometry = 
+    /* color: #d63000 */
+    /* shown: false */
+    ee.Geometry.MultiPoint(
         [[91.1219079330321, 23.292254856403005],
          [91.1493737533446, 22.938605135473352],
          [91.4185387924071, 22.971483218464208]]),
