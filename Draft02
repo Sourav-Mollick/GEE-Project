@@ -12629,7 +12629,7 @@ var chart = ui.Chart.feature.byFeature({
   hAxis: {title: 'Class'},
   vAxis: {title: 'Area (sq.km)'},
   legend: {position: 'none'},
-  colors: ['darkgreen','lightgreen','yellow','darkred','gray']  // Same order as your classified map palette
+  colors: ['#e1e741','#5226ff','#ff3030','#1dc22f']  // Same order as your classified map palette
 });
 
 print(chart);
