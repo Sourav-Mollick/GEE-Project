@@ -1,9 +1,16 @@
 /**** Start of imports. If edited, may not auto-convert in the playground. ****/
-var table = ee.FeatureCollection("FAO/GAUL/2015/level2"),
-    geometry = /* color: #d63000 */ee.Geometry.MultiPoint(
-        [[91.12303348239246, 23.33420392059934],
-         [91.08458133395496, 22.81367421517151],
-         [91.40867801364246, 22.97055016904939]]),
+var roi = 
+    /* color: #d63000 */
+    /* displayProperties: [
+      {
+        "type": "rectangle"
+      }
+    ] */
+    ee.Geometry.Polygon(
+        [[[90.60519744352382, 23.800035068730597],
+          [90.60519744352382, 22.008874103066287],
+          [91.58847381071132, 22.008874103066287],
+          [91.58847381071132, 23.800035068730597]]], null, false),
     imageCollection = ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED"),
     imageCollection2 = ee.ImageCollection("COPERNICUS/S1_GRD"),
     Waterbody = 
@@ -12531,12 +12538,8 @@ var table = ee.FeatureCollection("FAO/GAUL/2015/level2"),
             })]);
 /***** End of imports. If edited, may not auto-convert in the playground. *****/
 
-var roi = table.filterBounds(geometry).map(function(feature){
-  return feature.simplify(100)
-  })
-
 Map.centerObject(roi)
-Map.addLayer(roi)
+Map.addLayer(roi);
 
 
 var sen2 = imageCollection
@@ -12639,29 +12642,12 @@ Export.table.toDrive({
   fileFormat: 'CSV'
 });
 
-// Convert ROI to geometry
-var roiGeom = roi.geometry();
 
-// Create a binary mask from ROI
-var roiMask = ee.Image.constant(1).clip(roiGeom).mask();
 
-// Apply mask to classified map
-var maskedMap = map.updateMask(roiMask);
-
-// Create outline of ROI (1 pixel wide, value = 99)
-var outline = ee.Image().byte().paint({
-  featureCollection: roi,
-  color: 99,
-  width: 2   // thickness of outline
-});
-
-// Add outline as a new band
-var finalMap = maskedMap.addBands(outline);
-
-// Export with boundary
+// Export
 Export.image.toDrive({
   image: finalMap,
-  description: 'map_10_22_2024_masked_outline',
+  description: 'map_10_22_2024',
   region: roiGeom,
   scale: 30,
   folder: 'test',
