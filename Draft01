@@ -1,6 +1,7 @@
 /**** Start of imports. If edited, may not auto-convert in the playground. ****/
 var roi = 
     /* color: #d63000 */
+    /* shown: false */
     /* displayProperties: [
       {
         "type": "rectangle"
@@ -19,7 +20,7 @@ Map.centerObject(roi)
 Map.addLayer(roi)
 
 var sen2 = imageCollection
-.filterDate('2024-5','2024-6')
+.filterDate('2024-3','2024-4')
 .filterBounds(roi)
 .filter(ee.Filter.lt('CLOUDY_PIXEL_OVER_LAND_PERCENTAGE',10))
 
