@@ -13189,7 +13189,7 @@ Map.addLayer(map.clip(roi),{min: 0, max: 5, palette:['blue','darkgreen','lightgr
 // Export
 Export.image.toDrive({
   image:map.clip(roi),
-  description: 'map_10_22_2024',
+  description: 'map_03_01_2024',
   region: roi,
   scale: 30,
   folder: 'test',
