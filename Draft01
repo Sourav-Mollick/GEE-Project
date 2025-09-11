@@ -11,7 +11,8 @@ var roi =
           [90.60759588075855, 22.009881587973982],
           [91.59636541200855, 22.009881587973982],
           [91.59636541200855, 23.831181733474352]]], null, false),
-    imageCollection = ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED");
+    imageCollection = ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED"),
+    imageCollection2 = ee.ImageCollection("COPERNICUS/S1_GRD");
 /***** End of imports. If edited, may not auto-convert in the playground. *****/
 
 Map.centerObject(roi)
