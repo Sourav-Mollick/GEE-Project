@@ -19,62 +19,62 @@ Map.centerObject(roi)
 Map.addLayer(roi)
 
 var sen2 = imageCollection
-.filterDate('2024-11','2024-12')
+.filterDate('2024-8','2024-9')
 .filterBounds(roi)
 .filter(ee.Filter.lt('CLOUDY_PIXEL_OVER_LAND_PERCENTAGE',3))
+print(sen2)
+// .map(function(img){
+//   var bands = img.select('B[2-8]').multiply(0.0001)
+//   var ndvi = bands.normalizedDifference(['B8','B4']).rename('ndvi')
+//   var ndwi = bands.normalizedDifference(['B3','B8']).rename('ndwi')
+//   return bands.addBands(ndvi).addBands(ndwi)
+//   .copyProperties(img, ['system:time_start','system:time_end'])
+//   })
 
-.map(function(img){
-  var bands = img.select('B[2-8]').multiply(0.0001)
-  var ndvi = bands.normalizedDifference(['B8','B4']).rename('ndvi')
-  var ndwi = bands.normalizedDifference(['B3','B8']).rename('ndwi')
-  return bands.addBands(ndvi).addBands(ndwi)
-  .copyProperties(img, ['system:time_start','system:time_end'])
-  })
+// var sen2_per = sen2.reduce(ee.Reducer.percentile([75,55]))
 
-var sen2_per = sen2.reduce(ee.Reducer.percentile([75,55]))
+// Map.addLayer(sen2_per.clip(roi),[],'sen2',false)
 
-Map.addLayer(sen2_per.clip(roi),[],'sen2',false)
-
-var sen1 = imageCollection2
-.filterDate('2024-09','2024-11')
-.filterBounds(roi)
-.filter(ee.Filter.listContains('transmitterReceiverPolarisation','VV'))
-.filter(ee.Filter.eq('instrumentMode','IW'))
-.select('VV','VH')
-.filter(ee.Filter.eq('orbitProperties_pass','DESCENDING'))
+// var sen1 = imageCollection2
+// .filterDate('2024-09','2024-11')
+// .filterBounds(roi)
+// .filter(ee.Filter.listContains('transmitterReceiverPolarisation','VV'))
+// .filter(ee.Filter.eq('instrumentMode','IW'))
+// .select('VV','VH')
+// .filter(ee.Filter.eq('orbitProperties_pass','DESCENDING'))
 
 
-var sen1_per = sen1.reduce(ee.Reducer.percentile([75,55]))
+// var sen1_per = sen1.reduce(ee.Reducer.percentile([75,55]))
 
-Map.addLayer(sen1_per.clip(roi),[],'sen1',false)
+// Map.addLayer(sen1_per.clip(roi),[],'sen1',false)
 
-var dataset = sen2_per.addBands(sen1_per)
+// var dataset = sen2_per.addBands(sen1_per)
 
-var samples = Waterbody.merge(Vegetation).merge(Agricultural_Land).merge(Fallow_Land).merge(Settlements).merge(Barren_Land)
+// var samples = Waterbody.merge(Vegetation).merge(Agricultural_Land).merge(Fallow_Land).merge(Settlements).merge(Barren_Land)
 
-var training_data = dataset.sampleRegions({
-  collection: samples, properties: ['class'], scale: 30
-  })
+// var training_data = dataset.sampleRegions({
+//   collection: samples, properties: ['class'], scale: 30
+//   })
   
-var model = ee.Classifier.smileRandomForest(80).train({
-  features: training_data, classProperty: 'class', inputProperties: dataset.bandNames()
-  })
+// var model = ee.Classifier.smileRandomForest(80).train({
+//   features: training_data, classProperty: 'class', inputProperties: dataset.bandNames()
+//   })
   
 
 
-var map = dataset.classify(model).rename('classified_map')
+// var map = dataset.classify(model).rename('classified_map')
 
-Map.addLayer(map.clip(roi),{min: 0, max: 5, palette:['blue','darkgreen','lightgreen','yellow','darkred','gray']},'map',false)
+// Map.addLayer(map.clip(roi),{min: 0, max: 5, palette:['blue','darkgreen','lightgreen','yellow','darkred','gray']},'map',false)
 
 
 
-// Export
-Export.image.toDrive({
-  image:map.clip(roi),
-  description: 'map_10_22_2024',
-  region: roi,
-  scale: 30,
-  folder: 'test',
-  crs: 'EPSG:4326',
-  maxPixels: 1e13
-});
+// // Export
+// Export.image.toDrive({
+//   image:map.clip(roi),
+//   description: 'map_10_22_2024',
+//   region: roi,
+//   scale: 30,
+//   folder: 'test',
+//   crs: 'EPSG:4326',
+//   maxPixels: 1e13
+// });
