@@ -1,17 +1,16 @@
 /**** Start of imports. If edited, may not auto-convert in the playground. ****/
 var roi = 
     /* color: #d63000 */
-    /* shown: false */
     /* displayProperties: [
       {
         "type": "rectangle"
       }
     ] */
     ee.Geometry.Polygon(
-        [[[91.7091425209054, 24.910235882532007],
-          [91.7091425209054, 24.574109865082427],
-          [92.16713507461634, 24.574109865082427],
-          [92.16713507461634, 24.910235882532007]]], null, false),
+        [[[91.8464716224679, 24.820525009180685],
+          [91.8464716224679, 24.484156540988227],
+          [92.30446417617884, 24.484156540988227],
+          [92.30446417617884, 24.820525009180685]]], null, false),
     imageCollection = ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED");
 /***** End of imports. If edited, may not auto-convert in the playground. *****/
 
