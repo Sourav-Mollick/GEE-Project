@@ -1,6 +1,5 @@
 /**** Start of imports. If edited, may not auto-convert in the playground. ****/
-var Imagery = ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED"),
-    roi = 
+var roi = 
     /* color: #d63000 */
     /* displayProperties: [
       {
@@ -11,7 +10,8 @@ var Imagery = ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED"),
         [[[91.7091425209054, 24.910235882532007],
           [91.7091425209054, 24.574109865082427],
           [92.16713507461634, 24.574109865082427],
-          [92.16713507461634, 24.910235882532007]]], null, false);
+          [92.16713507461634, 24.910235882532007]]], null, false),
+    imageCollection = ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED");
 /***** End of imports. If edited, may not auto-convert in the playground. *****/
 
 Map.centerObject(roi)
