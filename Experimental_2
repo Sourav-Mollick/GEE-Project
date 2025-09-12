@@ -7607,7 +7607,8 @@ var roi =
             {
               "class": 4,
               "system:index": "115"
-            })]);
+            })]),
+    imageCollection2 = ee.ImageCollection("COPERNICUS/S1_GRD");
 /***** End of imports. If edited, may not auto-convert in the playground. *****/
 
 Map.centerObject(roi)
