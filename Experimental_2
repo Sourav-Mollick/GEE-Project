@@ -7496,7 +7496,7 @@ Map.addLayer(sen1_per.clip(roi),[],'sen1',false)
 
 var dataset = sen2_per.addBands(sen1_per)
 
-var samples = waterbody.merge(Agricultural_Land).merge(Vegetation).merge(Barren_Land).merge(Fallow_Land)
+var samples = waterbody.merge(Agricultural_Land).merge(Vegetation).merge(Fallow_Land)
 
 var training_data = dataset.sampleRegions({
   collection: samples, properties: ['class'], scale: 30
@@ -7509,7 +7509,7 @@ var model = ee.Classifier.smileRandomForest(80).train({
 
 var map = dataset.classify(model).rename('classified_map')
 
-Map.addLayer(map.clip(roi),{min: 0, max: 5, palette:['blue','lightgreen','darkgreen','gray','yellow']},'map',false)
+Map.addLayer(map.clip(roi),{min: 0, max: 5, palette:['blue','lightgreen','darkgreen','yellow']},'map',false)
 
 
 
