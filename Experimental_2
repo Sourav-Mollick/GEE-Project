@@ -1,6 +1,7 @@
 /**** Start of imports. If edited, may not auto-convert in the playground. ****/
 var roi = 
     /* color: #d63000 */
+    /* shown: false */
     /* displayProperties: [
       {
         "type": "rectangle"
@@ -18,7 +19,7 @@ Map.centerObject(roi)
 Map.addLayer(roi)
 
 var sen2 = imageCollection
-.filterDate('2022-3','2022-4')
+.filterDate('2023-3','2023-4')
 .filterBounds(roi)
 .filter(ee.Filter.lt('CLOUDY_PIXEL_OVER_LAND_PERCENTAGE',2))
 
@@ -35,7 +36,7 @@ var sen2_per = sen2.reduce(ee.Reducer.percentile([75,55]))
 Map.addLayer(sen2_per.clip(roi),[],'sen2',false)
 print(sen2)
 // var sen1 = imageCollection2
-// .filterDate('2024-03','2024-04')
+// .filterDate('2023-03','2023-04')
 // .filterBounds(roi)
 // .filter(ee.Filter.listContains('transmitterReceiverPolarisation','VV'))
 // .filter(ee.Filter.eq('instrumentMode','IW'))
