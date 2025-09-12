@@ -20,7 +20,7 @@ Map.addLayer(roi)
 var sen2 = imageCollection
 .filterDate('2022-3','2022-4')
 .filterBounds(roi)
-.filter(ee.Filter.lt('CLOUDY_PIXEL_OVER_LAND_PERCENTAGE',3))
+.filter(ee.Filter.lt('CLOUDY_PIXEL_OVER_LAND_PERCENTAGE',2))
 print(sen2)
 // .map(function(img){
 //   var bands = img.select('B[2-8]').multiply(0.0001)
