@@ -14118,7 +14118,10 @@ var training_data = dataset.sampleRegions({
 var model = ee.Classifier.smileRandomForest(80).train({
   features: training_data, classProperty: 'class', inputProperties: dataset.bandNames()
   })
-  
+ 
+ 
+ // Add image to inspect
+Map.addLayer(image, {bands: ['B4', 'B3', 'B2'], min: 0, max:3000}, 'Sentinel-2 RGB'); 
 // Calculate NDWI: (Green - NIR) / (Green + NIR)
 var ndwi = bands.normalizedDifference(['B3', 'B8']).rename('NDWI');
 
