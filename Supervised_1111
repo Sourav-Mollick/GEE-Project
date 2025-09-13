@@ -14121,7 +14121,7 @@ var model = ee.Classifier.smileRandomForest(80).train({
  
  
  // Add image to inspect
-Map.addLayer(image, {bands: ['B4', 'B3', 'B2'], min: 0, max:3000}, 'Sentinel-2 RGB'); 
+Map.addLayer(sen2, {bands: ['B4', 'B3', 'B2'], min: 0, max:3000}, 'Sentinel-2 RGB'); 
 // Calculate NDWI: (Green - NIR) / (Green + NIR)
 var ndwi = bands.normalizedDifference(['B3', 'B8']).rename('NDWI');
 
