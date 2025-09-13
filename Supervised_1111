@@ -14193,7 +14193,7 @@ Export.image.toDrive({
 // Export NDVI
 Export.image.toDrive({
   image: sen2_per.select('ndvi_p75','ndvi_p55').clip(roi),
-  description: 'NDVI_03_01_2024',
+  description: 'NDVI_11_11_2024',
   region: roi,
   scale: 30,
   folder: 'test',
@@ -14204,7 +14204,7 @@ Export.image.toDrive({
 // Export NDWI
 Export.image.toDrive({
   image: sen2_per.select('ndwi_p75','ndwi_p55').clip(roi),
-  description: 'NDWI_03_01_2024',
+  description: 'NDWI_11_11_2024',
   region: roi,
   scale: 30,
   folder: 'test',
