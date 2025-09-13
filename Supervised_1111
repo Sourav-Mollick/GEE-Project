@@ -14120,7 +14120,7 @@ var model = ee.Classifier.smileRandomForest(80).train({
   })
   
 // Calculate NDWI: (Green - NIR) / (Green + NIR)
-var ndwi = image.normalizedDifference(['B3', 'B8']).rename('NDWI');
+var ndwi = imageCollection2.normalizedDifference(['B3', 'B8']).rename('NDWI');
 
 // Visualization parameters for NDWI
 var ndwiVis = {
