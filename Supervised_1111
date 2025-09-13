@@ -14126,17 +14126,6 @@ var map = dataset.classify(model).rename('classified_map')
 Map.addLayer(map.clip(roi),{min: 0, max: 5, palette:['blue','darkgreen','lightgreen','yellow','darkred','gray']},'map',false)
 
 
-// Visualization parameters for NDWI
-var ndwiVis = {
-  min: -1,
-  max: 1,
-  palette: ['white', 'blue']
-};
-
-// Display the result
-Map.centerObject(roi, 10); // Adjust zoom level if necessary
-Map.addLayer(ndwi, ndwiVis, 'NDWI');
-
 // // Calculate class-wise area in sq.km
 // var areaImage = ee.Image.pixelArea().divide(1e6).addBands(map);
 
@@ -14191,13 +14180,13 @@ Map.addLayer(ndwi, ndwiVis, 'NDWI');
 
 
 
-// // Export
-// Export.image.toDrive({
-//   image:map.clip(roi),
-//   description: 'map_10_22_2024',
-//   region: roi,
-//   scale: 30,
-//   folder: 'test',
-//   crs: 'EPSG:4326',
-//   maxPixels: 1e13
-// });
+// Export
+Export.image.toDrive({
+  image:map.clip(roi),
+  description: 'map_10_22_2024',
+  region: roi,
+  scale: 30,
+  folder: 'test',
+  crs: 'EPSG:4326',
+  maxPixels: 1e13
+});
