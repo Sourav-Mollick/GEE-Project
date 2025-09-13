@@ -12,7 +12,6 @@ var roi =
           [91.64444705005951, 21.950698390179234],
           [91.64444705005951, 23.762733284161076]]], null, false);
 /***** End of imports. If edited, may not auto-convert in the playground. *****/
-var roi = ee.Geometry.Polygon(cor)
 
 Map.centerObject(roi);
 
