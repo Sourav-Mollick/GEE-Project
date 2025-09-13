@@ -1,6 +1,7 @@
 /**** Start of imports. If edited, may not auto-convert in the playground. ****/
 var roi = 
     /* color: #d63000 */
+    /* shown: false */
     /* displayProperties: [
       {
         "type": "rectangle"
@@ -10,7 +11,8 @@ var roi =
         [[[90.45792361255951, 23.762733284161076],
           [90.45792361255951, 21.950698390179234],
           [91.64444705005951, 21.950698390179234],
-          [91.64444705005951, 23.762733284161076]]], null, false);
+          [91.64444705005951, 23.762733284161076]]], null, false),
+    imageCollection = ee.ImageCollection("LANDSAT/LC08/C02/T1_TOA");
 /***** End of imports. If edited, may not auto-convert in the playground. *****/
 
 Map.centerObject(roi);
