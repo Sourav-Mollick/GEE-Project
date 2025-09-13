@@ -14134,7 +14134,7 @@ var ndwiVis = {
 };
 
 // Display the result
-Map.centerObject(geometry, 10); // Adjust zoom level if necessary
+Map.centerObject(roi, 10); // Adjust zoom level if necessary
 Map.addLayer(ndwi, ndwiVis, 'NDWI');
 
 // // Calculate class-wise area in sq.km
