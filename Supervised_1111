@@ -14189,3 +14189,25 @@ Export.image.toDrive({
   crs: 'EPSG:4326',
   maxPixels: 1e13
 });
+
+// Export NDVI
+Export.image.toDrive({
+  image: sen2_per.select('ndvi_p75','ndvi_p55').clip(roi),
+  description: 'NDVI_03_01_2024',
+  region: roi,
+  scale: 30,
+  folder: 'test',
+  crs: 'EPSG:4326',
+  maxPixels: 1e13
+});
+
+// Export NDWI
+Export.image.toDrive({
+  image: sen2_per.select('ndwi_p75','ndwi_p55').clip(roi),
+  description: 'NDWI_03_01_2024',
+  region: roi,
+  scale: 30,
+  folder: 'test',
+  crs: 'EPSG:4326',
+  maxPixels: 1e13
+});
