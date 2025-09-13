@@ -14119,7 +14119,19 @@ var model = ee.Classifier.smileRandomForest(80).train({
   features: training_data, classProperty: 'class', inputProperties: dataset.bandNames()
   })
   
+// Calculate NDWI: (Green - NIR) / (Green + NIR)
+var ndwi = image.normalizedDifference(['B3', 'B8']).rename('NDWI');
 
+// Visualization parameters for NDWI
+var ndwiVis = {
+  min: -1,
+  max: 1,
+  palette: ['white', 'blue']
+};
+
+// Display the result
+Map.centerObject(geometry, 10); // Adjust zoom level if necessary
+Map.addLayer(ndwi, ndwiVis, 'NDWI');
 
 var map = dataset.classify(model).rename('classified_map')
 
