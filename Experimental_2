@@ -7513,13 +7513,13 @@ Map.addLayer(map.clip(roi),{min: 0, max: 5, palette:['blue','lightgreen','darkgr
 
 
 
-// Export
-Export.image.toDrive({
-  image:map.clip(roi),
-  description: 'hakaluki_10_03_2023_sup',
-  region: roi,
-  scale: 30,
-  folder: 'test',
-  crs: 'EPSG:4326',
-  maxPixels: 1e13
-});
+// // Export
+// Export.image.toDrive({
+//   image:map.clip(roi),
+//   description: 'hakaluki_10_03_2023_sup',
+//   region: roi,
+//   scale: 30,
+//   folder: 'test',
+//   crs: 'EPSG:4326',
+//   maxPixels: 1e13
+// });
