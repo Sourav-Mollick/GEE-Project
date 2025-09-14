@@ -7495,7 +7495,7 @@ var sen1_per = sen1.reduce(ee.Reducer.percentile([75,55]))
 Map.addLayer(sen1_per.clip(roi),[],'sen1',false)
 
 var dataset = sen2_per.addBands(sen1_per)
-print(sen2)
+
 // var samples = waterbody.merge(Agricultural_Land).merge(Vegetation).merge(Fallow_Land)
 
 // var training_data = dataset.sampleRegions({
